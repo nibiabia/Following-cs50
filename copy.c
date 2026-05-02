@@ -12,7 +12,7 @@ int main(){
     t[0] = toupper(t[0]);
 
     printf("s: %s\n",s);//输出Hi!
-    printf("t: %s\n",t);//输出 Hi!
+    printf("t: %s\n",t);//输出Hi!
 
     return 0;
 }
@@ -31,5 +31,24 @@ int main(){
     printf("t: %s\n",t);//输出Hi!
 
     return 0;
+
+}
+
+
+//防御性编程：添加上错误检查
+int main(){
+
+    char *s = get_string("s: ");
+    char *t = malloc(strlen(s) + 1);
+    if(t == NULL){
+        return -1;
+    }
+    strcpy(t, s);//直接调用strcpy()函数复制
+    if(strlen(t) > 0){//用户有可能输入空字符串，长度为0，大写不了
+        t[0] = toupper(t[0]);
+    }
+    printf("s: %s\n", s);//输出hi!
+    printf("t: %s\n", t);//输出Hi!
+
 
 }
