@@ -1,17 +1,25 @@
-# 定义编译器。CS50 默认常用 clang，你也可以改成 gcc
-CC = gcc
+# 编译器设置，CS50 通常推荐使用 clang，你也可以换成 gcc
+CC = clang
 
-# 定义编译参数：-Wall 显示所有警告，-g 生成调试信息方便 debug
-CFLAGS = -Wall -g
+# 编译选项：开启常见警告
+CFLAGS = -Wall -Wextra -Werror -std=c11
 
-# 默认目标：当你在终端输入 make 时，会默认执行这个目标，编译这俩程序
-all: addresses 
+# 如果你需要使用 cs50 的库 (比如 get_string)，请取消下面这行的注释
+# LDLIBS = -lcs50
 
-# 编译 addresses 的规则
-addresses: addresses.c
-	$(CC) $(CFLAGS) addresses.c -o addresses
+# 自动获取当前目录下所有的 .c 文件
+SRCS = algorithm-2.c addresses.c compare.c copy.c garbage.c
 
+# 将 .c 后缀替换为空，生成目标可执行文件列表
+TARGETS = $(SRCS:.c=)
 
-# 清理指令：输入 make clean 删除生成的程序文件
+# 默认目标：输入 make 时执行，编译所有文件
+all: $(TARGETS)
+
+# 模式规则：教 make 如何通过 .c 文件生成对应的无后缀可执行文件
+%: %.c
+	$(CC) $(CFLAGS) $< -o $@ $(LDLIBS)
+
+# 清理规则：输入 make clean 时执行，删除所有编译出的可执行文件
 clean:
-	rm -f addresses algorithm-2
+	rm -f $(TARGETS)
