@@ -1,5 +1,5 @@
 # 编译器设置，CS50 通常推荐使用 clang，如果在本地 Windows 你也可以换成 gcc
-CC = clang
+CC = gcc
 
 # 编译选项：开启常见警告并使用 C11 标准
 CFLAGS = -Wall -Wextra -Werror -std=c11
